@@ -65,9 +65,11 @@ public class PlayerMovement2D : MonoBehaviour
 
         rb.velocity = new Vector2(velocidadActual, rb.velocity.y);
 
-        // Voltear sprite si cambia la dirección
+        // Eliminar voltear sprite
+        /*
         if ((velocidadActual > 0 && !mirandoDerecha) || (velocidadActual < 0 && mirandoDerecha))
             Voltear();
+        */
 
         // Saltar si está en suelo o plataforma
         if (Input.GetButtonDown("Jump") && enSuelo)
@@ -89,6 +91,8 @@ public class PlayerMovement2D : MonoBehaviour
         animator.SetBool("Grounded", enSuelo);
     }
 
+   
+    /*
     void Voltear()
     {
         mirandoDerecha = !mirandoDerecha;
@@ -96,6 +100,9 @@ public class PlayerMovement2D : MonoBehaviour
         escala.x *= -1;
         transform.localScale = escala;
     }
+    */
+
+  
 
     IEnumerator DesactivarColisionTemporal()
     {
