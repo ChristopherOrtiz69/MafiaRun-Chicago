@@ -145,3 +145,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocidad: 12
   vida: 2
+  esDelEnemigo: 0

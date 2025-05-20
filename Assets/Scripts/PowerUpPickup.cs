@@ -3,7 +3,7 @@ using UnityEngine;
 public class PowerUpPickup : MonoBehaviour
 {
     public Weapon nuevaArma;
-    public Disparo arma; // referencia que arrastras en inspector
+    public Disparo arma; 
 
     private void OnTriggerEnter2D(Collider2D other)
     {

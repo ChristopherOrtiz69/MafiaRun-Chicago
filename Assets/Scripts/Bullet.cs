@@ -1,25 +1,25 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
     public float velocidad = 20f;
     public float vida = 2f;
+    public bool esDelEnemigo = false; 
 
     private Vector2 direccion;
     private float tiempoDesactivacion;
 
-    
     public void Disparar(Vector2 direccionDiscreta)
     {
         direccion = direccionDiscreta.normalized;
         tiempoDesactivacion = Time.time + vida;
 
-        // ROTAR la bala para que mire en la direcci�n de disparo
         float angle = Mathf.Atan2(direccion.y, direccion.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
 
         gameObject.SetActive(true);
     }
+
     public void DispararEnDireccion(Vector2 direccionFija)
     {
         direccion = direccionFija.normalized;
@@ -33,10 +33,8 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        // Mover la bala en la direcci�n establecida
         transform.Translate(direccion * velocidad * Time.deltaTime, Space.World);
 
-        // Desactivarla si ya pas� su "vida �til"
         if (Time.time > tiempoDesactivacion)
         {
             gameObject.SetActive(false);
@@ -45,7 +43,19 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // Desactivar al colisionar con algo
-        //gameObject.SetActive(false);
+        // Aquí puedes manejar colisiones
+        if (esDelEnemigo && other.CompareTag("Player"))
+        {
+            // Lógica para dañar al jugador
+            // other.GetComponent<PlayerHealth>()?.TomarDaño(1);
+            gameObject.SetActive(false);
+        }
+
+        if (!esDelEnemigo && other.CompareTag("Enemy"))
+        {
+            // Lógica para dañar al enemigo
+            // other.GetComponent<EnemyAI>()?.TomarDaño(1);
+            gameObject.SetActive(false);
+        }
     }
 }

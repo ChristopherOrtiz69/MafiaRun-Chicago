@@ -13,15 +13,18 @@ public class PlayerMovement2D : MonoBehaviour
     [Header("Salto")]
     public float fuerzaSalto = 12f;
 
+    [Header("Doble Salto")]
+    public int saltosMaximos = 2;
+    private int saltosRestantes;
+
     [Header("Gravedad y salto")]
     public float gravedadNormal = 1f;
     public float gravedadCaida = 2.5f;
-    public float gravedadBajaAltura = 3f;
 
     [Header("Ground Check")]
     public Transform groundCheck;
     public float groundRadius = 0.15f;
-    public LayerMask groundLayer; 
+    public LayerMask groundLayer;
 
     private Rigidbody2D rb;
     private Collider2D playerCollider;
@@ -48,6 +51,12 @@ public class PlayerMovement2D : MonoBehaviour
         // Detectar si el jugador está tocando el suelo o plataforma one-way
         enSuelo = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
 
+        // Reiniciar los saltos al tocar el suelo
+        if (enSuelo)
+        {
+            saltosRestantes = saltosMaximos;
+        }
+
         float inputX = Input.GetAxisRaw("Horizontal");
 
         // Aceleración según dirección
@@ -71,10 +80,11 @@ public class PlayerMovement2D : MonoBehaviour
             Voltear();
         */
 
-        // Saltar si está en suelo o plataforma
-        if (Input.GetButtonDown("Jump") && enSuelo)
+        // Saltar si tiene saltos disponibles
+        if (Input.GetButtonDown("Jump") && saltosRestantes > 0)
         {
             rb.velocity = new Vector2(rb.velocity.x, fuerzaSalto);
+            saltosRestantes--;
         }
 
         // Bajar por plataforma one-way al presionar abajo
@@ -83,7 +93,7 @@ public class PlayerMovement2D : MonoBehaviour
             StartCoroutine(DesactivarColisionTemporal());
         }
 
-        // Ajustar gravedad para evitar levitar en salto
+        // Ajustar gravedad para caída
         AjustarGravedadSalto();
 
         // Animaciones
@@ -91,7 +101,6 @@ public class PlayerMovement2D : MonoBehaviour
         animator.SetBool("Grounded", enSuelo);
     }
 
-   
     /*
     void Voltear()
     {
@@ -101,8 +110,6 @@ public class PlayerMovement2D : MonoBehaviour
         transform.localScale = escala;
     }
     */
-
-  
 
     IEnumerator DesactivarColisionTemporal()
     {
@@ -118,11 +125,7 @@ public class PlayerMovement2D : MonoBehaviour
         {
             rb.gravityScale = gravedadCaida;
         }
-        else if (rb.velocity.y > 0 && !Input.GetButton("Jump")) 
-        {
-            rb.gravityScale = gravedadBajaAltura;
-        }
-        else 
+        else
         {
             rb.gravityScale = gravedadNormal;
         }

@@ -3,12 +3,14 @@
 public class Disparo : MonoBehaviour
 {
     public Transform puntoDisparo;
-    public Transform armaHolder; // punto donde se posiciona el arma visual
+    public Transform armaHolder;
     public Weapon armaActual;
     private float tiempoProximoDisparo;
 
     private Animator animator;
     private GameObject armaVisualInstanciada;
+
+    public Transform pivoteContainer; 
 
     void Start()
     {
@@ -33,25 +35,34 @@ public class Disparo : MonoBehaviour
 
     void Disparar()
     {
-        if (armaActual == null || armaActual.bulletPrefab == null) return;
+        if (armaActual == null || armaActual.bulletPrefab == null || puntoDisparo == null) return;
 
-        GameObject bala = Instantiate(armaActual.bulletPrefab, puntoDisparo.position, Quaternion.identity);
+        GameObject bala = BulletPool.Instance.ObtenerBala();
+        if (bala == null)
+        {
+            Debug.Log("No hay balas disponibles en el pool.");
+            return;
+        }
+
+        bala.transform.position = puntoDisparo.position;
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direccion = (mousePos - (Vector2)puntoDisparo.position).normalized;
 
         Vector2 direccionFinal;
-
         if (Mathf.Abs(direccion.x) > Mathf.Abs(direccion.y))
-        {
             direccionFinal = direccion.x > 0 ? Vector2.right : Vector2.left;
-        }
         else
-        {
             direccionFinal = direccion.y > 0 ? Vector2.up : Vector2.down;
+
+        Bullet bulletScript = bala.GetComponent<Bullet>();
+        if (bulletScript != null)
+        {
+            bulletScript.esDelEnemigo = false; // El jugador dispara
+            bulletScript.DispararEnDireccion(direccionFinal);
         }
 
-        bala.GetComponent<Bullet>().DispararEnDireccion(direccionFinal);
+        bala.SetActive(true);
     }
 
     public void CambiarArma(Weapon nuevaArma)
@@ -65,24 +76,19 @@ public class Disparo : MonoBehaviour
         {
             armaVisualInstanciada = Instantiate(armaActual.prefabVisualArma, armaHolder.position, armaHolder.rotation, armaHolder);
 
-            // Asignar pivotes desde hijos del prefab instanciado
             RotarArma rotador = armaVisualInstanciada.GetComponent<RotarArma>();
-            if (rotador != null)
+            if (rotador != null && pivoteContainer != null)
             {
-                Transform pivotRight = armaVisualInstanciada.transform.Find("PivotRight");
-                Transform pivotLeft = armaVisualInstanciada.transform.Find("PivotLeft");
+                rotador.pivotRight = pivoteContainer.Find("PivotRight");
+                rotador.pivotLeft = pivoteContainer.Find("PivotLeft");
+                rotador.pivotUp = pivoteContainer.Find("PivotUp");
+                rotador.pivotDown = pivoteContainer.Find("PivotDown");
 
-                if (pivotRight != null && pivotLeft != null)
+                if (rotador.pivotRight == null || rotador.pivotLeft == null || rotador.pivotUp == null || rotador.pivotDown == null)
                 {
-                    rotador.pivotRight = pivotRight;
-                    rotador.pivotLeft = pivotLeft;
-                }
-                else
-                {
-                    Debug.LogWarning("No se encontraron los pivots en el arma visual.");
+                    Debug.LogWarning("Uno o más pivotes no fueron encontrados en el Player.");
                 }
             }
         }
     }
-
 }
