@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44e97db52a244a34ab4a9e387162c598, type: 3}
   m_Name: MP-5
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3680826491016749322, guid: 41c4f4c0de685bb4c99435785477e393, type: 3}
-  fireRate: 0.1
+  bulletPrefab: {fileID: 7809781785687474324, guid: 9f09b27444997f945820f376c6e044d7, type: 3}
+  fireRate: 0.2
   prefabVisualArma: {fileID: 4197096803431803193, guid: 4e698911e336f114aacd9f3eeb190d1d, type: 3}

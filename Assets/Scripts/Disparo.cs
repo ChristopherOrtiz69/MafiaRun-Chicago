@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Cinemachine;
 
 public class Disparo : MonoBehaviour
 {
@@ -10,7 +11,10 @@ public class Disparo : MonoBehaviour
     private Animator animator;
     private GameObject armaVisualInstanciada;
 
-    public Transform pivoteContainer; 
+    public Transform pivoteContainer;
+
+    [Header("Sacudido de cámara")]
+    public CinemachineImpulseSource impulseSource;
 
     void Start()
     {
@@ -37,7 +41,8 @@ public class Disparo : MonoBehaviour
     {
         if (armaActual == null || armaActual.bulletPrefab == null || puntoDisparo == null) return;
 
-        GameObject bala = BulletPool.Instance.ObtenerBala();
+        GameObject bala = BulletPool.Instance.ObtenerBala(armaActual.bulletPrefab); // ← CORREGIDO
+
         if (bala == null)
         {
             Debug.Log("No hay balas disponibles en el pool.");
@@ -58,12 +63,22 @@ public class Disparo : MonoBehaviour
         Bullet bulletScript = bala.GetComponent<Bullet>();
         if (bulletScript != null)
         {
-            bulletScript.esDelEnemigo = false; // El jugador dispara
+            bulletScript.esDelEnemigo = false;
             bulletScript.DispararEnDireccion(direccionFinal);
         }
 
         bala.SetActive(true);
+
+        if (impulseSource != null)
+        {
+            impulseSource.GenerateImpulse();
+        }
+        else
+        {
+            Debug.LogWarning("No se asignó CinemachineImpulseSource en Disparo.cs");
+        }
     }
+
 
     public void CambiarArma(Weapon nuevaArma)
     {

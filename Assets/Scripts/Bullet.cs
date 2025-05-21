@@ -4,15 +4,18 @@ public class Bullet : MonoBehaviour
 {
     public float velocidad = 20f;
     public float vida = 2f;
-    public bool esDelEnemigo = false; 
+    public bool esDelEnemigo = false;
 
     private Vector2 direccion;
     private float tiempoDesactivacion;
+
+    private bool impactoRegistrado = false;
 
     public void Disparar(Vector2 direccionDiscreta)
     {
         direccion = direccionDiscreta.normalized;
         tiempoDesactivacion = Time.time + vida;
+        impactoRegistrado = false; // resetear impacto al disparar
 
         float angle = Mathf.Atan2(direccion.y, direccion.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
@@ -24,6 +27,7 @@ public class Bullet : MonoBehaviour
     {
         direccion = direccionFija.normalized;
         tiempoDesactivacion = Time.time + vida;
+        impactoRegistrado = false; // resetear impacto al disparar
 
         float angle = Mathf.Atan2(direccion.y, direccion.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
@@ -43,19 +47,18 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // Aquí puedes manejar colisiones
+        if (impactoRegistrado) return;
+
         if (esDelEnemigo && other.CompareTag("Player"))
         {
-            // Lógica para dañar al jugador
-            // other.GetComponent<PlayerHealth>()?.TomarDaño(1);
-            gameObject.SetActive(false);
+            impactoRegistrado = true;
+            // No desactiva la bala aquí para que el otro script pueda contar el impacto
         }
 
         if (!esDelEnemigo && other.CompareTag("Enemy"))
         {
-            // Lógica para dañar al enemigo
-            // other.GetComponent<EnemyAI>()?.TomarDaño(1);
-            gameObject.SetActive(false);
+            impactoRegistrado = true;
+            // Igual no desactiva aquí
         }
     }
 }

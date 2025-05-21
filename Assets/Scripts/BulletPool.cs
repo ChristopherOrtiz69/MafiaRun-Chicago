@@ -4,25 +4,34 @@ using UnityEngine;
 public class BulletPool : MonoBehaviour
 {
     public static BulletPool Instance;
-    public GameObject balaPrefab;
-    public int poolSize = 20;
 
-    private List<GameObject> pool = new List<GameObject>();
+    public int poolSizePorPrefab = 10;
+
+    // Diccionario para almacenar múltiples tipos de balas
+    private Dictionary<GameObject, List<GameObject>> pools = new Dictionary<GameObject, List<GameObject>>();
 
     void Awake()
     {
         Instance = this;
-        for (int i = 0; i < poolSize; i++)
-        {
-            GameObject bala = Instantiate(balaPrefab);
-            bala.SetActive(false);
-            pool.Add(bala);
-        }
     }
 
-    public GameObject ObtenerBala()
+    public GameObject ObtenerBala(GameObject prefab)
     {
-        foreach (GameObject bala in pool)
+        if (!pools.ContainsKey(prefab))
+        {
+            // Si no existe el pool para este prefab, lo creamos
+            pools[prefab] = new List<GameObject>();
+
+            for (int i = 0; i < poolSizePorPrefab; i++)
+            {
+                GameObject nuevaBala = Instantiate(prefab);
+                nuevaBala.SetActive(false);
+                pools[prefab].Add(nuevaBala);
+            }
+        }
+
+        // Buscar una bala inactiva
+        foreach (GameObject bala in pools[prefab])
         {
             if (!bala.activeInHierarchy)
             {
@@ -30,10 +39,10 @@ public class BulletPool : MonoBehaviour
             }
         }
 
-        // Si no hay balas disponibles, se instancia otra
-        GameObject nuevaBala = Instantiate(balaPrefab);
-        nuevaBala.SetActive(false);
-        pool.Add(nuevaBala);
-        return nuevaBala;
+        // Si no hay disponibles, crear una nueva
+        GameObject extraBala = Instantiate(prefab);
+        extraBala.SetActive(false);
+        pools[prefab].Add(extraBala);
+        return extraBala;
     }
 }
