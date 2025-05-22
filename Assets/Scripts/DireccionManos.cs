@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class direccionManos : MonoBehaviour
 {
-    public Transform playerTransform; 
+    public Transform playerTransform;
 
     private Animator animator;
     private Vector3 escalaOriginal;
+    private Vector2 ultimaDireccion = Vector2.right;
 
     void Start()
     {
@@ -15,49 +16,45 @@ public class direccionManos : MonoBehaviour
 
     void Update()
     {
-        // Mantener la posición del player, sin heredar rotación ni escala
+        // Posición del jugador
         transform.position = playerTransform.position;
-
-        // Resetear rotación siempre
         transform.rotation = Quaternion.identity;
 
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.z = 0f;
-        Vector2 direccion = (mousePos - transform.position).normalized;
+        // Capturar entrada para actualizar dirección
+        if (Input.GetKey(KeyCode.W)) ultimaDireccion = Vector2.up;
+        else if (Input.GetKey(KeyCode.S)) ultimaDireccion = Vector2.down;
+        else if (Input.GetKey(KeyCode.D)) ultimaDireccion = Vector2.right;
+        else if (Input.GetKey(KeyCode.A)) ultimaDireccion = Vector2.left;
 
-        // Limpiar todos los bools
-       // animator.SetBool("Right", false);
+        // Limpiar animaciones
         animator.SetBool("Up", false);
         animator.SetBool("Down", false);
 
-        if (Mathf.Abs(direccion.x) > Mathf.Abs(direccion.y))
+        // Elegir animación y escala
+        if (Mathf.Abs(ultimaDireccion.x) > Mathf.Abs(ultimaDireccion.y))
         {
-            // Horizontal
-           // animator.SetBool("Right", true);
-
-            if (direccion.x > 0)
+            // Dirección horizontal
+            if (ultimaDireccion.x > 0)
             {
-                // Mirando derecha normal
                 transform.localScale = new Vector3(Mathf.Abs(escalaOriginal.x), escalaOriginal.y, escalaOriginal.z);
             }
             else
             {
-                // Mirando izquierda: flip horizontal con misma animación
                 transform.localScale = new Vector3(-Mathf.Abs(escalaOriginal.x), escalaOriginal.y, escalaOriginal.z);
             }
         }
         else
         {
-            // Vertical
-            if (direccion.y > 0)
+            // Dirección vertical
+            if (ultimaDireccion.y > 0)
             {
                 animator.SetBool("Up", true);
-                transform.localScale = escalaOriginal; // sin flip para arriba
+                transform.localScale = escalaOriginal;
             }
             else
             {
                 animator.SetBool("Down", true);
-                transform.localScale = escalaOriginal; // sin flip para abajo
+                transform.localScale = escalaOriginal;
             }
         }
     }

@@ -43,15 +43,15 @@ public class PlayerMovement2D : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
 
         playerLayer = gameObject.layer;
-        rb.gravityScale = gravedadNormal; // Inicializar gravedad normal
+        rb.gravityScale = gravedadNormal; 
     }
 
     void Update()
     {
-        // Detectar si el jugador está tocando el suelo o plataforma one-way
+       
         enSuelo = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
 
-        // Reiniciar los saltos al tocar el suelo
+      
         if (enSuelo)
         {
             saltosRestantes = saltosMaximos;
@@ -59,7 +59,7 @@ public class PlayerMovement2D : MonoBehaviour
 
         float inputX = Input.GetAxisRaw("Horizontal");
 
-        // Aceleración según dirección
+       
         float aceleracionActual = inputX > 0 ? aceleracionAdelante : aceleracionAtras;
 
         if (inputX != 0)
@@ -87,7 +87,7 @@ public class PlayerMovement2D : MonoBehaviour
             saltosRestantes--;
         }
 
-        // Bajar por plataforma one-way al presionar abajo
+        
         if ((Input.GetKeyDown(KeyCode.S) || Input.GetAxisRaw("Vertical") < -0.1f) && enSuelo)
         {
             StartCoroutine(DesactivarColisionTemporal());

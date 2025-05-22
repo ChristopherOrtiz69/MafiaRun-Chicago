@@ -11,7 +11,7 @@ public class EnemyAI : MonoBehaviour
     public float velocidad = 2f;
 
     [Header("Distancia de detención antes de disparar")]
-    public float distanciaDetencion = 1.5f; // Nueva variable para definir cuando dejar de avanzar
+    public float distanciaDetencion = 1.5f; 
 
     [Header("Ataque")]
     public Transform puntoDisparo;
@@ -20,7 +20,7 @@ public class EnemyAI : MonoBehaviour
     private float proximoDisparo;
 
     [Header("Bala")]
-    public GameObject prefabBala; // Prefab único para este enemigo
+    public GameObject prefabBala; 
 
     [Header("Ground Check")]
     public Transform groundCheck;
@@ -63,7 +63,7 @@ public class EnemyAI : MonoBehaviour
         {
             if (distancia > rangoDisparo)
             {
-                // Aquí comprobamos si la distancia es mayor que la distancia de detención para moverse
+               
                 if (distancia > distanciaDetencion)
                 {
                     rb.velocity = new Vector2(direccionMovimiento * velocidad, rb.velocity.y);
@@ -74,13 +74,13 @@ public class EnemyAI : MonoBehaviour
                 }
                 else
                 {
-                    // Si está dentro de la distancia de detención, se detiene
+                  
                     rb.velocity = new Vector2(0, rb.velocity.y);
                 }
             }
             else
             {
-                // Dentro de rango de disparo, se detiene y dispara
+               
                 rb.velocity = new Vector2(0, rb.velocity.y);
 
                 if (Time.time >= proximoDisparo)

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RotarArma : MonoBehaviour
 {
@@ -16,7 +16,7 @@ public class RotarArma : MonoBehaviour
 
         if (pivotRight == null || pivotLeft == null || pivotUp == null || pivotDown == null)
         {
-            Debug.LogWarning("Pivotes no asignados. Aseg�rate de pasarlos desde Disparo.cs.");
+            Debug.LogWarning("Pivotes no asignados. Asegúrate de pasarlos desde Disparo.cs.");
         }
     }
 
@@ -25,42 +25,41 @@ public class RotarArma : MonoBehaviour
         if (pivotRight == null || pivotLeft == null || pivotUp == null || pivotDown == null)
             return;
 
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.z = 0f;
+        Vector2 direccion = Vector2.zero;
 
-        Vector2 direccion = (mousePos - pivotRight.position).normalized;
+        if (Input.GetKey(KeyCode.W)) direccion = Vector2.up;
+        else if (Input.GetKey(KeyCode.S)) direccion = Vector2.down;
+        else if (Input.GetKey(KeyCode.D)) direccion = Vector2.right;
+        else if (Input.GetKey(KeyCode.A)) direccion = Vector2.left;
+        else return; // No hay dirección, no hacer nada
 
         Transform pivotObjetivo = pivotRight;
         float angulo = 0f;
 
-        transform.localScale = new Vector3(Mathf.Abs(escalaOriginal.x), escalaOriginal.y, escalaOriginal.z);
-
-        if (Mathf.Abs(direccion.x) > Mathf.Abs(direccion.y))
+        // Asignar posición según pivote
+        if (direccion == Vector2.right)
         {
-            if (direccion.x > 0)
-            {
-                pivotObjetivo = pivotRight;
-                angulo = 0f;
-            }
-            else
-            {
-                pivotObjetivo = pivotLeft;
-                angulo = 0f;
-                transform.localScale = new Vector3(-Mathf.Abs(escalaOriginal.x), escalaOriginal.y, escalaOriginal.z);
-            }
+            pivotObjetivo = pivotRight;
+            angulo = 0f;
+            transform.localScale = new Vector3(Mathf.Abs(escalaOriginal.x), escalaOriginal.y, escalaOriginal.z);
         }
-        else
+        else if (direccion == Vector2.left)
         {
-            if (direccion.y > 0)
-            {
-                pivotObjetivo = pivotUp;
-                angulo = 90f;
-            }
-            else
-            {
-                pivotObjetivo = pivotDown;
-                angulo = -90f;
-            }
+            pivotObjetivo = pivotLeft;
+            angulo = 0f; // Sin rotación para evitar que gire boca abajo
+            transform.localScale = new Vector3(-Mathf.Abs(escalaOriginal.x), escalaOriginal.y, escalaOriginal.z); // Flip horizontal
+        }
+        else if (direccion == Vector2.up)
+        {
+            pivotObjetivo = pivotUp;
+            angulo = 90f;
+            transform.localScale = new Vector3(Mathf.Abs(escalaOriginal.x), escalaOriginal.y, escalaOriginal.z);
+        }
+        else if (direccion == Vector2.down)
+        {
+            pivotObjetivo = pivotDown;
+            angulo = -90f;
+            transform.localScale = new Vector3(Mathf.Abs(escalaOriginal.x), escalaOriginal.y, escalaOriginal.z);
         }
 
         transform.position = pivotObjetivo.position;

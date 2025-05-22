@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &763357401563292591
+--- !u!1 &880129988416747676
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8583055425215715513}
-  - component: {fileID: 2177001897252396738}
-  - component: {fileID: 7425552688892112284}
-  - component: {fileID: 2799977437468097587}
-  - component: {fileID: 8218884013820858466}
+  - component: {fileID: 764118141310896987}
+  - component: {fileID: 1226321728493446393}
+  - component: {fileID: 35888027585622783}
+  - component: {fileID: 4104224235309961209}
+  - component: {fileID: 1389428347369397476}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: M79 Grenade Launcher spritesheet - 55ms per frame_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8583055425215715513
+--- !u!4 &764118141310896987
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 763357401563292591}
+  m_GameObject: {fileID: 880129988416747676}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4294098175571127824}
+  m_Father: {fileID: 4937971440084340419}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &2177001897252396738
+--- !u!212 &1226321728493446393
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 763357401563292591}
+  m_GameObject: {fileID: 880129988416747676}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -76,28 +76,28 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: -738675758, guid: b721cf4246895a84a8977fa320dbc8ee, type: 3}
+  m_Sprite: {fileID: -1549846280, guid: dc8529a346e89124a93301e434372b6f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.234375, y: 0.625}
+  m_Size: {x: 5, y: 1.3125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &7425552688892112284
+--- !u!95 &35888027585622783
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 763357401563292591}
+  m_GameObject: {fileID: 880129988416747676}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 55b078f3b78609b4eb74b4ef8c3ab5af, type: 2}
+  m_Controller: {fileID: 9100000, guid: f1fcc28cbd4495443942ea7d7dab3c37, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -108,37 +108,37 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2799977437468097587
+--- !u!114 &4104224235309961209
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 763357401563292591}
+  m_GameObject: {fileID: 880129988416747676}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e065edb84c353814a849f7beed8b042d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puntoDisparo: {fileID: 7589286502313194400}
+  puntoDisparo: {fileID: 6841261065616528695}
   armaHolder: {fileID: 0}
-  armaActual: {fileID: 11400000, guid: ed8cb751df86bad47ad1afc17e19d286, type: 2}
+  armaActual: {fileID: 11400000, guid: f760f0dae4055254cba6dd81bf50fd80, type: 2}
   pivoteContainer: {fileID: 0}
-  impulseSource: {fileID: 8218884013820858466}
---- !u!114 &8218884013820858466
+  impulseSource: {fileID: 1389428347369397476}
+--- !u!114 &1389428347369397476
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 763357401563292591}
+  m_GameObject: {fileID: 880129988416747676}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_ImpulseDefinition:
-    m_ImpulseChannel: -1
+    m_ImpulseChannel: 1
     m_ImpulseShape: 1
     m_CustomImpulseShape:
       serializedVersion: 2
@@ -177,8 +177,8 @@ MonoBehaviour:
     m_DissipationMode: 2
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
-  m_DefaultVelocity: {x: 0.04, y: -0.04, z: 0}
---- !u!1 &4197096803431803193
+  m_DefaultVelocity: {x: 0.05, y: -0.05, z: 0}
+--- !u!1 &6785567326337878405
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,39 +186,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4294098175571127824}
-  - component: {fileID: 7189462481303639145}
+  - component: {fileID: 4937971440084340419}
+  - component: {fileID: 4215496308998931642}
   m_Layer: 0
-  m_Name: MP-5
+  m_Name: M79-Grenade-Launcher 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4294098175571127824
+--- !u!4 &4937971440084340419
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4197096803431803193}
+  m_GameObject: {fileID: 6785567326337878405}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.41, y: -0.402, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8583055425215715513}
-  - {fileID: 7589286502313194400}
+  - {fileID: 764118141310896987}
+  - {fileID: 6841261065616528695}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7189462481303639145
+--- !u!114 &4215496308998931642
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4197096803431803193}
+  m_GameObject: {fileID: 6785567326337878405}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83ab7c5860069b64c88fa88dd9dae9e2, type: 3}
@@ -228,7 +228,7 @@ MonoBehaviour:
   pivotLeft: {fileID: 0}
   pivotUp: {fileID: 0}
   pivotDown: {fileID: 0}
---- !u!1 &8795378303475566503
+--- !u!1 &8951686963711591268
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -236,26 +236,26 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7589286502313194400}
+  - component: {fileID: 6841261065616528695}
   m_Layer: 0
-  m_Name: Pivot
+  m_Name: pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7589286502313194400
+--- !u!4 &6841261065616528695
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8795378303475566503}
+  m_GameObject: {fileID: 8951686963711591268}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.347, y: 0.173, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4294098175571127824}
+  m_Father: {fileID: 4937971440084340419}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

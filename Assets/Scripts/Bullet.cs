@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour
     {
         direccion = direccionDiscreta.normalized;
         tiempoDesactivacion = Time.time + vida;
-        impactoRegistrado = false; // resetear impacto al disparar
+        impactoRegistrado = false; 
 
         float angle = Mathf.Atan2(direccion.y, direccion.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
@@ -27,7 +27,7 @@ public class Bullet : MonoBehaviour
     {
         direccion = direccionFija.normalized;
         tiempoDesactivacion = Time.time + vida;
-        impactoRegistrado = false; // resetear impacto al disparar
+        impactoRegistrado = false; 
 
         float angle = Mathf.Atan2(direccion.y, direccion.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
@@ -52,13 +52,13 @@ public class Bullet : MonoBehaviour
         if (esDelEnemigo && other.CompareTag("Player"))
         {
             impactoRegistrado = true;
-            // No desactiva la bala aquí para que el otro script pueda contar el impacto
+           
         }
 
         if (!esDelEnemigo && other.CompareTag("Enemy"))
         {
             impactoRegistrado = true;
-            // Igual no desactiva aquí
+            
         }
     }
 }

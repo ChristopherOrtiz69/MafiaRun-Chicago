@@ -30,7 +30,7 @@ public class BulletPool : MonoBehaviour
             }
         }
 
-        // Buscar una bala inactiva
+        
         foreach (GameObject bala in pools[prefab])
         {
             if (!bala.activeInHierarchy)
@@ -39,7 +39,6 @@ public class BulletPool : MonoBehaviour
             }
         }
 
-        // Si no hay disponibles, crear una nueva
         GameObject extraBala = Instantiate(prefab);
         extraBala.SetActive(false);
         pools[prefab].Add(extraBala);

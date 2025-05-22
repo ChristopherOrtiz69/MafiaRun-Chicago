@@ -16,6 +16,8 @@ public class Disparo : MonoBehaviour
     [Header("Sacudido de cámara")]
     public CinemachineImpulseSource impulseSource;
 
+    private Vector2 ultimaDireccion = Vector2.right; // Dirección por defecto
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -25,23 +27,29 @@ public class Disparo : MonoBehaviour
 
     void Update()
     {
-        bool presionandoDisparo = Input.GetButton("Fire1");
+        // Actualizar la dirección si se presiona una tecla
+        if (Input.GetKey(KeyCode.W)) ultimaDireccion = Vector2.up;
+        else if (Input.GetKey(KeyCode.S)) ultimaDireccion = Vector2.down;
+        else if (Input.GetKey(KeyCode.D)) ultimaDireccion = Vector2.right;
+        else if (Input.GetKey(KeyCode.A)) ultimaDireccion = Vector2.left;
+
+        bool presionandoDisparo = Input.GetKey(KeyCode.K);
 
         if (animator != null)
             animator.SetBool("Disparando", presionandoDisparo);
 
         if (presionandoDisparo && Time.time >= tiempoProximoDisparo)
         {
-            Disparar();
+            Disparar(ultimaDireccion);
             tiempoProximoDisparo = Time.time + armaActual.fireRate;
         }
     }
 
-    void Disparar()
+    void Disparar(Vector2 direccion)
     {
         if (armaActual == null || armaActual.bulletPrefab == null || puntoDisparo == null) return;
 
-        GameObject bala = BulletPool.Instance.ObtenerBala(armaActual.bulletPrefab); // ← CORREGIDO
+        GameObject bala = BulletPool.Instance.ObtenerBala(armaActual.bulletPrefab);
 
         if (bala == null)
         {
@@ -51,20 +59,11 @@ public class Disparo : MonoBehaviour
 
         bala.transform.position = puntoDisparo.position;
 
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direccion = (mousePos - (Vector2)puntoDisparo.position).normalized;
-
-        Vector2 direccionFinal;
-        if (Mathf.Abs(direccion.x) > Mathf.Abs(direccion.y))
-            direccionFinal = direccion.x > 0 ? Vector2.right : Vector2.left;
-        else
-            direccionFinal = direccion.y > 0 ? Vector2.up : Vector2.down;
-
         Bullet bulletScript = bala.GetComponent<Bullet>();
         if (bulletScript != null)
         {
             bulletScript.esDelEnemigo = false;
-            bulletScript.DispararEnDireccion(direccionFinal);
+            bulletScript.DispararEnDireccion(direccion.normalized);
         }
 
         bala.SetActive(true);
@@ -78,7 +77,6 @@ public class Disparo : MonoBehaviour
             Debug.LogWarning("No se asignó CinemachineImpulseSource en Disparo.cs");
         }
     }
-
 
     public void CambiarArma(Weapon nuevaArma)
     {
