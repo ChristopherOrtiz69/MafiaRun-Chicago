@@ -145,8 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d7ffa62ac86a4e4cae34c4f5b2af3a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad: 4.8
-  vida: 3
+  velocidad: 7
+  vida: 0.8
   esDelEnemigo: 0
 --- !u!50 &1885078800899490605
 Rigidbody2D:
