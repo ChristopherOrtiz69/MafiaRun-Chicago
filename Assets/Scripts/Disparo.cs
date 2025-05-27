@@ -16,7 +16,11 @@ public class Disparo : MonoBehaviour
     [Header("Sacudido de cámara")]
     public CinemachineImpulseSource impulseSource;
 
-    private Vector2 ultimaDireccion = Vector2.right; // Dirección por defecto
+    [Header("Opciones especiales de arma")]
+    public bool esEscopeta = false; // ⬅️ Activa esto manualmente si el arma es escopeta
+    public float separacionAngulo = 10f; // ⬅️ Ángulo de dispersión de las balas
+
+    private Vector2 ultimaDireccion = Vector2.right;
 
     void Start()
     {
@@ -27,7 +31,6 @@ public class Disparo : MonoBehaviour
 
     void Update()
     {
-        // Actualizar la dirección si se presiona una tecla
         if (Input.GetKey(KeyCode.W)) ultimaDireccion = Vector2.up;
         else if (Input.GetKey(KeyCode.S)) ultimaDireccion = Vector2.down;
         else if (Input.GetKey(KeyCode.D)) ultimaDireccion = Vector2.right;
@@ -49,24 +52,17 @@ public class Disparo : MonoBehaviour
     {
         if (armaActual == null || armaActual.bulletPrefab == null || puntoDisparo == null) return;
 
-        GameObject bala = BulletPool.Instance.ObtenerBala(armaActual.bulletPrefab);
-
-        if (bala == null)
+        if (esEscopeta)
         {
-            Debug.Log("No hay balas disponibles en el pool.");
-            return;
+            // Disparar 3 balas con ángulos separados
+            DispararBalaConAngulo(direccion, 0); // Centro
+            DispararBalaConAngulo(direccion, separacionAngulo); // Derecha
+            DispararBalaConAngulo(direccion, -separacionAngulo); // Izquierda
         }
-
-        bala.transform.position = puntoDisparo.position;
-
-        Bullet bulletScript = bala.GetComponent<Bullet>();
-        if (bulletScript != null)
+        else
         {
-            bulletScript.esDelEnemigo = false;
-            bulletScript.DispararEnDireccion(direccion.normalized);
+            DispararBalaConAngulo(direccion, 0); // Disparo normal
         }
-
-        bala.SetActive(true);
 
         if (impulseSource != null)
         {
@@ -76,6 +72,30 @@ public class Disparo : MonoBehaviour
         {
             Debug.LogWarning("No se asignó CinemachineImpulseSource en Disparo.cs");
         }
+    }
+
+    void DispararBalaConAngulo(Vector2 direccion, float angulo)
+    {
+        GameObject bala = BulletPool.Instance.ObtenerBala(armaActual.bulletPrefab);
+        if (bala == null)
+        {
+            Debug.Log("No hay balas disponibles en el pool.");
+            return;
+        }
+
+        bala.transform.position = puntoDisparo.position;
+
+        // Rotar la dirección original
+        Vector2 direccionRotada = Quaternion.Euler(0, 0, angulo) * direccion;
+
+        Bullet bulletScript = bala.GetComponent<Bullet>();
+        if (bulletScript != null)
+        {
+            bulletScript.esDelEnemigo = false;
+            bulletScript.DispararEnDireccion(direccionRotada.normalized);
+        }
+
+        bala.SetActive(true);
     }
 
     public void CambiarArma(Weapon nuevaArma)
