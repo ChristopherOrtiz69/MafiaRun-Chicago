@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 
 public class EnemyHealth : MonoBehaviour
@@ -6,13 +6,17 @@ public class EnemyHealth : MonoBehaviour
     public int hitsParaDesactivar = 3;
     private int golpesRecibidos = 0;
 
-    [Header("Sprite Renderer para efecto de daño")]
+    [Header("Sprite Renderer para efecto de daÃ±o")]
     public SpriteRenderer spriteRenderer;
     private Color colorOriginal;
     public float duracionRojo = 0.2f;
 
     [Header("Efecto de muerte")]
-    public int indexVFXMuerte = 0; // Índice en el VFXManager
+    public int indexVFXMuerte = 0;
+
+    [Header("Audio de muerte")]
+    public AudioSource audioSource;
+    public AudioClip sonidoMuerte;
 
     void Start()
     {
@@ -40,7 +44,9 @@ public class EnemyHealth : MonoBehaviour
 
         if (golpesRecibidos >= hitsParaDesactivar)
         {
-            StartCoroutine(EsperarYDesactivar());
+            EjecutarVFX();
+            ReproducirSonidoMuerte();
+            StartCoroutine(DesactivarDespuesDe(0.15f)); // Solo espera para que se vea el VFX
         }
     }
 
@@ -51,17 +57,25 @@ public class EnemyHealth : MonoBehaviour
         spriteRenderer.color = colorOriginal;
     }
 
-    IEnumerator EsperarYDesactivar()
+    void EjecutarVFX()
     {
-        // Activar el VFX antes de desactivar el enemigo
         if (VFXManager.Instance != null)
         {
             VFXManager.Instance.ActivarVFX(indexVFXMuerte, transform.position);
         }
+    }
 
-        // Esperar para que el VFX se vea
-        yield return new WaitForSeconds(0.15f);
+    void ReproducirSonidoMuerte()
+    {
+        if (audioSource != null && sonidoMuerte != null)
+        {
+            audioSource.PlayOneShot(sonidoMuerte);
+        }
+    }
 
+    IEnumerator DesactivarDespuesDe(float tiempo)
+    {
+        yield return new WaitForSeconds(tiempo);
         gameObject.SetActive(false);
     }
 }

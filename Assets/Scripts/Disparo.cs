@@ -17,14 +17,19 @@ public class Disparo : MonoBehaviour
     public CinemachineImpulseSource impulseSource;
 
     [Header("Opciones especiales de arma")]
-    public bool esEscopeta = false; // ⬅️ Activa esto manualmente si el arma es escopeta
-    public float separacionAngulo = 10f; // ⬅️ Ángulo de dispersión de las balas
+    public bool esEscopeta = false;
+    public float separacionAngulo = 10f;
 
     private Vector2 ultimaDireccion = Vector2.right;
+
+    [Header("Audio de disparo")]
+    public AudioSource audioSource;
+    public AudioClip sonidoDisparo;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+
         if (armaActual != null)
             CambiarArma(armaActual);
     }
@@ -54,14 +59,23 @@ public class Disparo : MonoBehaviour
 
         if (esEscopeta)
         {
-            // Disparar 3 balas con ángulos separados
-            DispararBalaConAngulo(direccion, 0); // Centro
-            DispararBalaConAngulo(direccion, separacionAngulo); // Derecha
-            DispararBalaConAngulo(direccion, -separacionAngulo); // Izquierda
+            DispararBalaConAngulo(direccion, 0);
+            DispararBalaConAngulo(direccion, separacionAngulo);
+            DispararBalaConAngulo(direccion, -separacionAngulo);
         }
         else
         {
-            DispararBalaConAngulo(direccion, 0); // Disparo normal
+            DispararBalaConAngulo(direccion, 0);
+        }
+
+        // 🔊 Reproducir sonido de disparo
+        if (audioSource != null && sonidoDisparo != null)
+        {
+            audioSource.PlayOneShot(sonidoDisparo);
+        }
+        else
+        {
+            Debug.LogWarning("AudioSource o sonidoDisparo no asignado.");
         }
 
         if (impulseSource != null)
@@ -85,7 +99,6 @@ public class Disparo : MonoBehaviour
 
         bala.transform.position = puntoDisparo.position;
 
-        // Rotar la dirección original
         Vector2 direccionRotada = Quaternion.Euler(0, 0, angulo) * direccion;
 
         Bullet bulletScript = bala.GetComponent<Bullet>();
