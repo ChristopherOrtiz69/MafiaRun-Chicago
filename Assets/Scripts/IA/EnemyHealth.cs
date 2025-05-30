@@ -44,9 +44,12 @@ public class EnemyHealth : MonoBehaviour
 
         if (golpesRecibidos >= hitsParaDesactivar)
         {
+            
             EjecutarVFX();
+            
             ReproducirSonidoMuerte();
-            StartCoroutine(DesactivarDespuesDe(0.15f)); // Solo espera para que se vea el VFX
+            StartCoroutine(DesactivarDespuesDe(0.15f));
+            // Solo espera para que se vea el VFX
         }
     }
 

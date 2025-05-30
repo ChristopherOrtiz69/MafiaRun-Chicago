@@ -26,6 +26,10 @@ public class PlayerMovement2D : MonoBehaviour
     public float groundRadius = 0.15f;
     public LayerMask groundLayer;
 
+    [Header("Coyote Time")]
+    public float tiempoCoyote = 0.2f;
+    private float contadorCoyote;
+
     private Rigidbody2D rb;
     private Collider2D playerCollider;
     private Animator animator;
@@ -43,23 +47,26 @@ public class PlayerMovement2D : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
 
         playerLayer = gameObject.layer;
-        rb.gravityScale = gravedadNormal; 
+        rb.gravityScale = gravedadNormal;
     }
 
     void Update()
     {
-       
+        // Detección de suelo y coyote time
         enSuelo = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
 
-      
         if (enSuelo)
         {
             saltosRestantes = saltosMaximos;
+            contadorCoyote = tiempoCoyote;
+        }
+        else
+        {
+            contadorCoyote -= Time.deltaTime;
         }
 
         float inputX = Input.GetAxisRaw("Horizontal");
 
-       
         float aceleracionActual = inputX > 0 ? aceleracionAdelante : aceleracionAtras;
 
         if (inputX != 0)
@@ -74,42 +81,29 @@ public class PlayerMovement2D : MonoBehaviour
 
         rb.velocity = new Vector2(velocidadActual, rb.velocity.y);
 
-        // Eliminar voltear sprite
-        /*
-        if ((velocidadActual > 0 && !mirandoDerecha) || (velocidadActual < 0 && mirandoDerecha))
-            Voltear();
-        */
-
-        // Saltar si tiene saltos disponibles
-        if (Input.GetButtonDown("Jump") && saltosRestantes > 0)
+        // Salto con coyote time
+        if (Input.GetButtonDown("Jump") && (saltosRestantes > 0 || contadorCoyote > 0f))
         {
             rb.velocity = new Vector2(rb.velocity.x, fuerzaSalto);
-            saltosRestantes--;
+
+            if (!enSuelo)
+                saltosRestantes--;
+
+            contadorCoyote = 0f;
         }
 
-        
+        // Baja por plataformas
         if ((Input.GetKeyDown(KeyCode.S) || Input.GetAxisRaw("Vertical") < -0.1f) && enSuelo)
         {
             StartCoroutine(DesactivarColisionTemporal());
         }
 
-        // Ajustar gravedad para caída
         AjustarGravedadSalto();
 
         // Animaciones
         animator.SetFloat("Speed", Mathf.Abs(velocidadActual));
         animator.SetBool("Grounded", enSuelo);
     }
-
-    /*
-    void Voltear()
-    {
-        mirandoDerecha = !mirandoDerecha;
-        Vector3 escala = transform.localScale;
-        escala.x *= -1;
-        transform.localScale = escala;
-    }
-    */
 
     IEnumerator DesactivarColisionTemporal()
     {
