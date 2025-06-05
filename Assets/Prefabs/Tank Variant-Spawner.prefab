@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4294652164400002466
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1566722885243873865, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: Priority
+      value: 175
+      objectReference: {fileID: 0}
+    - target: {fileID: 1566722885243873865, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: m_Volume
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1566722885243873865, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586390672544879281, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: hitsParaDesactivar
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2672698935468093970, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2672698935468093970, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2672698935468093970, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2672698935468093970, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2672698935468093970, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2672698935468093970, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2672698935468093970, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2672698935468093970, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2672698935468093970, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2672698935468093970, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3443689491513598154, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4762559477495123411, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: m_Name
+      value: Tank Variant-Spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 4762559477495123411, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5052055878464611593, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5264702005663078041, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8263281130349818683, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: velocidad
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8263281130349818683, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: rangoDeteccion
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8263281130349818683, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: distanciaChequeo
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8263281130349818683, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: enemyLayer.m_Bits
+      value: 2048
+      objectReference: {fileID: 0}
+    - target: {fileID: 8263281130349818683, guid: 45f85e6457a555845a2d1798768e3871, type: 3}
+      propertyPath: distanciaDetencion
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 45f85e6457a555845a2d1798768e3871, type: 3}

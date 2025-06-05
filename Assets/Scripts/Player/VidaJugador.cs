@@ -1,23 +1,35 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI; 
 using System.Collections.Generic;
 
 public class VidaJugador : MonoBehaviour
 {
-    [Header("ConfiguraciÛn de vidas")]
+    [Header("Configuraci√≥n de vidas")]
     public int maxImpactos = 3;
     private int impactosRecibidos = 0;
 
-    [Tooltip("Arrastra aquÌ los objetos de UI que representan las vidas (corazones, etc.)")]
+    [Tooltip("Arrastra aqu√≠ los objetos de UI que representan las vidas (corazones, etc.)")]
     public List<GameObject> iconosVida;
 
-    // Evento que otros scripts pueden escuchar
-    public delegate void RecibirDaÒoHandler();
-    public event RecibirDaÒoHandler OnRecibirDaÒo;
+    [Header("Panel de Game Over")]
+    public GameObject panelGameOver;
+
+    
+    public delegate void RecibirDa√±oHandler();
+    public event RecibirDa√±oHandler OnRecibirDa√±o;
+
+    private void Start()
+    {
+        if (panelGameOver != null)
+            panelGameOver.SetActive(false);
+
+        Time.timeScale = 1f; 
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log($"Jugador detectÛ trigger con: {other.gameObject.name}");
+        Debug.Log($"Jugador detect√≥ trigger con: {other.gameObject.name}");
 
         Bullet bala = other.GetComponent<Bullet>();
         if (bala != null && bala.esDelEnemigo)
@@ -25,17 +37,21 @@ public class VidaJugador : MonoBehaviour
             impactosRecibidos++;
             Debug.Log($"Impactos recibidos por el jugador: {impactosRecibidos}");
 
-            bala.gameObject.SetActive(false); // Desactiva la bala
+            bala.gameObject.SetActive(false);
 
             ActualizarUIVidas();
 
-            // Emitir evento de daÒo
-            OnRecibirDaÒo?.Invoke();
+            OnRecibirDa√±o?.Invoke();
 
             if (impactosRecibidos >= maxImpactos)
             {
-                Debug.Log("Jugador muriÛ, reiniciando nivel...");
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                Debug.Log("Jugador muri√≥, activando Game Over...");
+                Time.timeScale = 0f; 
+
+                if (panelGameOver != null)
+                    panelGameOver.SetActive(true);
+                else
+                    Debug.LogWarning("No se asign√≥ un panel de Game Over en el inspector.");
             }
         }
     }
@@ -46,7 +62,18 @@ public class VidaJugador : MonoBehaviour
 
         for (int i = 0; i < iconosVida.Count; i++)
         {
-            iconosVida[i].SetActive(i < vidasRestantes);
+            Image imagen = iconosVida[i].GetComponent<Image>();
+            if (imagen != null)
+            {
+                imagen.color = (i < vidasRestantes) ? Color.white : new Color(1, 1, 1, 0); // oculta visualmente
+            }
         }
+    }
+
+    // Llama esta funci√≥n desde un bot√≥n del panel de Game Over
+    public void ReiniciarNivel()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

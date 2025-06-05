@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // Aquí podrías agregar más funciones como mostrar/ocultar paneles, salir del juego, etc.
+    
     public void SalirDelJuego()
     {
         Debug.Log("Saliendo del juego...");

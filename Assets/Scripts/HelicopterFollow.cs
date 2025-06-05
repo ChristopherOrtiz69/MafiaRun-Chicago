@@ -71,7 +71,16 @@ public class HelicopterAI : MonoBehaviour
             bala.transform.rotation = Quaternion.identity;
             bala.SetActive(true);
 
-            Vector2 direccion = (objetivo.position - transform.position).normalized;
+            Vector2 centroObjetivo = objetivo.position;
+
+            Collider2D collider = objetivo.GetComponent<Collider2D>();
+            if (collider != null)
+            {
+                centroObjetivo = collider.bounds.center;
+            }
+
+            Vector2 direccion = (centroObjetivo - (Vector2)transform.position).normalized;
+
             Bullet bulletScript = bala.GetComponent<Bullet>();
             if (bulletScript != null)
             {

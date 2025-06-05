@@ -113,10 +113,10 @@ TextureImporter:
       name: police-idle_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 6
-        width: 13
-        height: 20
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e2fcd551496edb14f97d8b45d9f221a6
-      internalID: -1661324900
+      spriteID: 20b15ae7a84cd4f48b3124077ad15c9a
+      internalID: -560418705
       vertices: []
       indices: 
       edges: []
@@ -134,10 +134,10 @@ TextureImporter:
       name: police-idle_1
       rect:
         serializedVersion: 2
-        x: 41
-        y: 6
-        width: 13
-        height: 19
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d748454785f92404198879d83e3233f3
-      internalID: -137000945
+      spriteID: bf1cc9ee075a50248be3541ae1972513
+      internalID: 154444641
       vertices: []
       indices: 
       edges: []
@@ -155,10 +155,10 @@ TextureImporter:
       name: police-idle_2
       rect:
         serializedVersion: 2
-        x: 73
-        y: 6
-        width: 13
-        height: 19
+        x: 64
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,8 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22856445627d6634a87fc6ebda5c306e
-      internalID: 1964407939
+      spriteID: f2c688a65105de1498a783e94c8658eb
+      internalID: 1975539407
       vertices: []
       indices: 
       edges: []
@@ -176,10 +176,10 @@ TextureImporter:
       name: police-idle_3
       rect:
         serializedVersion: 2
-        x: 105
-        y: 6
-        width: 13
-        height: 20
+        x: 96
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,8 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 547998afbaaac044fb0087b69d4c6ab5
-      internalID: -1954519264
+      spriteID: 0848926e7f6dfcf448cad89a97a78d02
+      internalID: -401836742
       vertices: []
       indices: 
       edges: []
@@ -204,10 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      police-idle_0: -1661324900
-      police-idle_1: -137000945
-      police-idle_2: 1964407939
-      police-idle_3: -1954519264
+      police-idle_0: -560418705
+      police-idle_1: 154444641
+      police-idle_2: 1975539407
+      police-idle_3: -401836742
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

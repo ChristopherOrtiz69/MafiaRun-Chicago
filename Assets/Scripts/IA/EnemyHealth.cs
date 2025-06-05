@@ -5,6 +5,8 @@ public class EnemyHealth : MonoBehaviour
 {
     public int hitsParaDesactivar = 3;
     private int golpesRecibidos = 0;
+    private SpecialAbilityController habilidadEspecial;
+
 
     [Header("Sprite Renderer para efecto de daño")]
     public SpriteRenderer spriteRenderer;
@@ -18,18 +20,41 @@ public class EnemyHealth : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip sonidoMuerte;
 
+    [Header("Objeto extra que se desactiva al morir (opcional)")]
+    public GameObject objetoADesactivar;
+
+    [Header("Arma del enemigo (opcional)")]
+    public GameObject armaEnemigo;
+
+    [Header("Script de disparos del enemigo (opcional)")]
+    public MonoBehaviour scriptDisparo;
+
+    private Collider2D miCollider;
+
+    // Eventos públicos para conectar con otros scripts
+    public delegate void EventoGolpe();
+    public event EventoGolpe OnRecibirGolpe;
+    public event EventoGolpe OnMorir;
+
     void Start()
     {
         if (spriteRenderer != null)
             colorOriginal = spriteRenderer.color;
         else
             Debug.LogWarning("No asignaste el SpriteRenderer en EnemyHealth.");
+
+        miCollider = GetComponent<Collider2D>();
+        if (miCollider == null)
+            Debug.LogWarning("EnemyHealth no encontró un Collider2D en el mismo GameObject.");
+
+        habilidadEspecial = FindObjectOfType<SpecialAbilityController>();
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Bullet bala = collision.GetComponent<Bullet>();
-        if (bala != null && bala.esDelEnemigo == false)
+        if (bala != null && !bala.esDelEnemigo)
         {
             RecibirGolpe();
             bala.gameObject.SetActive(false);
@@ -39,17 +64,47 @@ public class EnemyHealth : MonoBehaviour
     void RecibirGolpe()
     {
         golpesRecibidos++;
+
         if (spriteRenderer != null)
             StartCoroutine(PintarRojoTemporal());
 
+        if (habilidadEspecial != null)
+            habilidadEspecial.RegistrarEnemigoEliminado(gameObject);
+
+
+        // Disparar evento de daño
+        OnRecibirGolpe?.Invoke();
+
         if (golpesRecibidos >= hitsParaDesactivar)
         {
-            
+            if (spriteRenderer != null)
+                spriteRenderer.enabled = false;
+
+            if (miCollider != null)
+                miCollider.enabled = false;
+
+            if (objetoADesactivar != null)
+                objetoADesactivar.SetActive(false);
+
+            if (armaEnemigo != null)
+                armaEnemigo.SetActive(false);
+
+            // Desactiva el script de disparo
+            if (scriptDisparo != null)
+            {
+                scriptDisparo.CancelInvoke();
+                scriptDisparo.StopAllCoroutines();
+                scriptDisparo.enabled = false;
+            }
+
+            // Disparar evento de muerte
+            OnMorir?.Invoke();
+
             EjecutarVFX();
-            
             ReproducirSonidoMuerte();
-            StartCoroutine(DesactivarDespuesDe(0.15f));
-            // Solo espera para que se vea el VFX
+
+            float tiempoEsperar = (sonidoMuerte != null) ? sonidoMuerte.length + 0.1f : 0.5f;
+            StartCoroutine(DesactivarDespuesDe(tiempoEsperar));
         }
     }
 

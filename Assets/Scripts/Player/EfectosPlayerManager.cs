@@ -5,7 +5,7 @@ using System.Collections;
 public class EfectosPlayerManager : MonoBehaviour
 {
     [Header("Referencias necesarias")]
-    public VidaJugador vidaJugador; // Arrastra aquí el Player que tiene el script VidaJugador
+    public VidaJugador vidaJugador; 
     public SpriteRenderer spriteRenderer; // Sprite del jugador
     public CinemachineImpulseSource impulseSource;
 

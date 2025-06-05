@@ -13,11 +13,14 @@ public class GunSoundManager : MonoBehaviour
         Debug.Log("Intentando reproducir sonido de disparo");
 
         if (audioSource != null && sonidoDisparo != null)
+
         {
             audioSource.PlayOneShot(sonidoDisparo);
             Debug.Log("¡Sonido de disparo reproducido!");
+
         }
         else
+
         {
             Debug.LogWarning("Falta AudioSource o sonidoDisparo en GunSoundManager");
         }

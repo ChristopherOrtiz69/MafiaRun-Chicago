@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: AK-47
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 3680826491016749322, guid: 41c4f4c0de685bb4c99435785477e393, type: 3}
-  fireRate: 0.3
+  fireRate: 0.2
   prefabVisualArma: {fileID: 8062463851453742896, guid: f02b6a7c2cea87149b511c37143b24eb, type: 3}

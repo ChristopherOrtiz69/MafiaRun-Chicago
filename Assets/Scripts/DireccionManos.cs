@@ -16,7 +16,7 @@ public class direccionManos : MonoBehaviour
 
     void Update()
     {
-        // Posición del jugador
+       
         transform.position = playerTransform.position;
         transform.rotation = Quaternion.identity;
 
@@ -26,14 +26,14 @@ public class direccionManos : MonoBehaviour
         else if (Input.GetKey(KeyCode.D)) ultimaDireccion = Vector2.right;
         else if (Input.GetKey(KeyCode.A)) ultimaDireccion = Vector2.left;
 
-        // Limpiar animaciones
+       
         animator.SetBool("Up", false);
         animator.SetBool("Down", false);
 
         // Elegir animación y escala
         if (Mathf.Abs(ultimaDireccion.x) > Mathf.Abs(ultimaDireccion.y))
         {
-            // Dirección horizontal
+           
             if (ultimaDireccion.x > 0)
             {
                 transform.localScale = new Vector3(Mathf.Abs(escalaOriginal.x), escalaOriginal.y, escalaOriginal.z);
@@ -45,7 +45,7 @@ public class direccionManos : MonoBehaviour
         }
         else
         {
-            // Dirección vertical
+            
             if (ultimaDireccion.y > 0)
             {
                 animator.SetBool("Up", true);

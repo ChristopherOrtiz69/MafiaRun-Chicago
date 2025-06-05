@@ -7,6 +7,7 @@ public class InicioNivel : MonoBehaviour
     public RectTransform letra2;
     public RectTransform letra3;
     public RectTransform letra4;
+
     public RectTransform letra5;
     public RectTransform letra6;
     public RectTransform Panel;

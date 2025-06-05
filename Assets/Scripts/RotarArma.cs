@@ -46,8 +46,8 @@ public class RotarArma : MonoBehaviour
         else if (direccion == Vector2.left)
         {
             pivotObjetivo = pivotLeft;
-            angulo = 0f; // Sin rotación para evitar que gire boca abajo
-            transform.localScale = new Vector3(-Mathf.Abs(escalaOriginal.x), escalaOriginal.y, escalaOriginal.z); // Flip horizontal
+            angulo = 0f; // Sin rotación para evitar que gire boca abaje
+            transform.localScale = new Vector3(-Mathf.Abs(escalaOriginal.x), escalaOriginal.y, escalaOriginal.z); 
         }
         else if (direccion == Vector2.up)
         {

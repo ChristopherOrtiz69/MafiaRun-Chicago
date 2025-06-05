@@ -7,13 +7,29 @@ public class MachineGunShoot : MonoBehaviour
     public Transform puntoDisparo;
     public Weapon armaActual;
 
+    [Header("Indicador de dirección")]
+    public GameObject flechaDireccion;
+
     [Header("Sacudido de cámara")]
     public CinemachineImpulseSource impulseSource;
 
     [Header("Referencias")]
-    public GameObject objetoConAnimator; // ⬅️ El GameObject del jugador (para pausar movimiento)
-    public GameObject animatorDisparoObject; // ⬅️ El GameObject que tiene el Animator para la animación de disparo
+    public GameObject objetoConAnimator;
+    public GameObject animatorDisparoObject;
 
+    [Header("Audio")]
+    public AudioSource audioSourceDisparo;
+    public AudioClip clipDisparo;
+
+    [Header("Rotación de disparo")]
+    public float anguloMin = -90f;
+    public float anguloMax = 90f;
+    public float velocidadRotacion = 90f;
+
+    [Header("UI")]
+    public GameObject mensajeUso; // Texto que aparece cuando el jugador se acerca
+
+    private float anguloActual = 0f;
     private float tiempoProximoDisparo;
     private Camera camaraPrincipal;
 
@@ -21,64 +37,72 @@ public class MachineGunShoot : MonoBehaviour
     private GameObject jugador;
     private PlayerMovement2D scriptMovimientoJugador;
     private Rigidbody2D rbJugador;
-    private Animator animatorDisparo; // ⬅️ Animator que controla la animación de disparo
+    private Animator animatorDisparo;
+
+    private bool jugadorEnContacto = false;
 
     void Start()
     {
         camaraPrincipal = Camera.main;
 
         if (animatorDisparoObject != null)
-        {
             animatorDisparo = animatorDisparoObject.GetComponent<Animator>();
-        }
 
-        if (objetoConAnimator != null)
-        {
-            // Solo desactivamos animaciones de movimiento aquí
-        }
+        if (mensajeUso != null)
+            mensajeUso.SetActive(true);
     }
 
     void Update()
     {
-        if (jugador != null && Input.GetKeyDown(KeyCode.T))
+        if (jugadorEnContacto && Input.GetKeyDown(KeyCode.T))
         {
-            if (scriptMovimientoJugador != null)
-                scriptMovimientoJugador.enabled = true;
-
-            if (objetoConAnimator != null)
-            {
-                Animator animJugador = objetoConAnimator.GetComponent<Animator>();
-                if (animJugador != null)
-                    animJugador.enabled = true;
-            }
-
-            puedeDisparar = false;
-
-            if (animatorDisparo != null)
-                animatorDisparo.SetBool("Disparando", false);
+            AlternarEstadoDisparo();
         }
 
-        if (!puedeDisparar || armaActual == null) return;
+        if (!puedeDisparar || armaActual == null)
+            return;
+
+        float inputVertical = Input.GetAxisRaw("Vertical");
+        anguloActual += inputVertical * velocidadRotacion * Time.deltaTime;
+        anguloActual = Mathf.Clamp(anguloActual, anguloMin, anguloMax);
+
+        puntoDisparo.localRotation = Quaternion.Euler(0, 0, anguloActual);
+
+        if (flechaDireccion != null)
+        {
+            flechaDireccion.transform.position = puntoDisparo.position;
+            flechaDireccion.transform.rotation = puntoDisparo.rotation;
+        }
 
         bool presionandoDisparo = Input.GetKey(KeyCode.K);
 
         if (animatorDisparo != null)
             animatorDisparo.SetBool("Disparando", presionandoDisparo);
 
-        if (presionandoDisparo && Time.time >= tiempoProximoDisparo)
+        if (presionandoDisparo)
         {
-            Vector2 direccionMouse = ObtenerDireccionHaciaMouse();
-            Disparar(direccionMouse);
-            tiempoProximoDisparo = Time.time + armaActual.fireRate;
-        }
-    }
+            if (Time.time >= tiempoProximoDisparo)
+            {
+                Vector2 direccion = puntoDisparo.right;
+                Disparar(direccion);
+                tiempoProximoDisparo = Time.time + armaActual.fireRate;
+            }
 
-    Vector2 ObtenerDireccionHaciaMouse()
-    {
-        Vector3 posicionMouse = Input.mousePosition;
-        Vector3 posicionMundo = camaraPrincipal.ScreenToWorldPoint(posicionMouse);
-        Vector2 direccion = (posicionMundo - puntoDisparo.position);
-        return direccion.normalized;
+            if (audioSourceDisparo != null && !audioSourceDisparo.isPlaying)
+            {
+                audioSourceDisparo.clip = clipDisparo;
+                audioSourceDisparo.loop = true;
+                audioSourceDisparo.Play();
+            }
+        }
+        else
+        {
+            if (audioSourceDisparo != null && audioSourceDisparo.isPlaying)
+            {
+                audioSourceDisparo.Stop();
+                audioSourceDisparo.loop = false;
+            }
+        }
     }
 
     void Disparar(Vector2 direccion)
@@ -103,40 +127,74 @@ public class MachineGunShoot : MonoBehaviour
         bala.SetActive(true);
 
         if (impulseSource != null)
-        {
             impulseSource.GenerateImpulse();
+    }
+
+    private void AlternarEstadoDisparo()
+    {
+        puedeDisparar = !puedeDisparar;
+
+        if (puedeDisparar)
+        {
+            if (jugador != null)
+            {
+                scriptMovimientoJugador = jugador.GetComponent<PlayerMovement2D>();
+                rbJugador = jugador.GetComponent<Rigidbody2D>();
+
+                if (rbJugador != null)
+                    rbJugador.velocity = Vector2.zero;
+
+                if (scriptMovimientoJugador != null)
+                    scriptMovimientoJugador.enabled = false;
+
+                if (objetoConAnimator != null)
+                {
+                    Animator animJugador = objetoConAnimator.GetComponent<Animator>();
+                    if (animJugador != null)
+                        animJugador.enabled = false;
+                }
+            }
         }
         else
         {
-            Debug.LogWarning("No se asignó CinemachineImpulseSource.");
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
-        {
-            Debug.Log("Jugador detectó trigger con Ametra");
-
-            jugador = other.gameObject;
-            scriptMovimientoJugador = jugador.GetComponent<PlayerMovement2D>();
-            rbJugador = jugador.GetComponent<Rigidbody2D>();
-
-            // Detener movimiento del jugador
-            if (rbJugador != null)
-                rbJugador.velocity = Vector2.zero;
-
             if (scriptMovimientoJugador != null)
-                scriptMovimientoJugador.enabled = false;
+                scriptMovimientoJugador.enabled = true;
 
             if (objetoConAnimator != null)
             {
                 Animator animJugador = objetoConAnimator.GetComponent<Animator>();
                 if (animJugador != null)
-                    animJugador.enabled = false;
+                    animJugador.enabled = true;
             }
 
-            puedeDisparar = true;
+            if (animatorDisparo != null)
+                animatorDisparo.SetBool("Disparando", false);
+        }
+
+        if (mensajeUso != null)
+            mensajeUso.SetActive(!puedeDisparar);
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            jugadorEnContacto = true;
+            jugador = collision.gameObject;
+
+            if (mensajeUso != null && !puedeDisparar)
+                mensajeUso.SetActive(true);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            jugadorEnContacto = false;
+
+            if (mensajeUso != null)
+                mensajeUso.SetActive(false);
         }
     }
 }
