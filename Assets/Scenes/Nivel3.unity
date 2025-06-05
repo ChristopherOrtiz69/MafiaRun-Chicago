@@ -993,7 +993,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Usa T para salir '
+  m_text: '" T " para usar Minigun'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e77200775041d85488b9d472c4a8edcc, type: 2}
   m_sharedMaterial: {fileID: 4725921430168972820, guid: e77200775041d85488b9d472c4a8edcc, type: 2}
@@ -2629,7 +2629,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4101376043966996142, guid: c84728ec2f213fc40968912de19576ac, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 215.33
+      value: 214.6106
       objectReference: {fileID: 0}
     - target: {fileID: 4101376043966996142, guid: c84728ec2f213fc40968912de19576ac, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2669,19 +2669,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5635542169239742077, guid: c84728ec2f213fc40968912de19576ac, type: 3}
       propertyPath: m_Size.x
-      value: 7.0990906
+      value: 9.911072
       objectReference: {fileID: 0}
     - target: {fileID: 5635542169239742077, guid: c84728ec2f213fc40968912de19576ac, type: 3}
       propertyPath: m_Offset.x
-      value: 0.003616333
+      value: 0.0076904297
       objectReference: {fileID: 0}
     - target: {fileID: 5635542169239742077, guid: c84728ec2f213fc40968912de19576ac, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 7.0287714
+      value: 9.9065275
       objectReference: {fileID: 0}
     - target: {fileID: 7713553323097910696, guid: c84728ec2f213fc40968912de19576ac, type: 3}
       propertyPath: m_Size.x
-      value: 7.0287714
+      value: 9.9065275
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6360,7 +6360,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 217.03683, y: 0.013874531, z: -10}
+  m_LocalPosition: {x: 216.58682, y: 0.013845444, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18056,7 +18056,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -44.8, y: -12.6}
+  m_AnchoredPosition: {x: -11.1, y: 22.8}
   m_SizeDelta: {x: 25, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1496722868
@@ -23123,7 +23123,7 @@ Transform:
   m_GameObject: {fileID: 1948482539}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 217.03667, y: 2.8899999, z: -10}
+  m_LocalPosition: {x: 216.58665, y: 2.8899999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -25351,19 +25351,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6768301636591429763, guid: d81c638d03722ab46b70b8bf2a668217, type: 3}
       propertyPath: m_Size.x
-      value: 0.68655396
+      value: 0.9402771
       objectReference: {fileID: 0}
     - target: {fileID: 6768301636591429763, guid: d81c638d03722ab46b70b8bf2a668217, type: 3}
       propertyPath: m_Size.y
-      value: 0.6425433
+      value: 0.8458277
       objectReference: {fileID: 0}
     - target: {fileID: 6768301636591429763, guid: d81c638d03722ab46b70b8bf2a668217, type: 3}
       propertyPath: m_Offset.x
-      value: -1.156723
+      value: -1.2835846
       objectReference: {fileID: 0}
     - target: {fileID: 6768301636591429763, guid: d81c638d03722ab46b70b8bf2a668217, type: 3}
       propertyPath: m_Offset.y
-      value: 0.27672827
+      value: 0.17508608
+      objectReference: {fileID: 0}
+    - target: {fileID: 6768301636591429763, guid: d81c638d03722ab46b70b8bf2a668217, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7657626362402497598, guid: d81c638d03722ab46b70b8bf2a668217, type: 3}
       propertyPath: m_LocalPosition.x
@@ -25566,7 +25570,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7404481387362813187, guid: 528ec86063d6f5d4f963e918de11c137, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 214.21
+      value: 213.76
       objectReference: {fileID: 0}
     - target: {fileID: 7404481387362813187, guid: 528ec86063d6f5d4f963e918de11c137, type: 3}
       propertyPath: m_LocalPosition.y
