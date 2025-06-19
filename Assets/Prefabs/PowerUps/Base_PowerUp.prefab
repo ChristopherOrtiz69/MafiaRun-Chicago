@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 8439332981202639911}
   m_Layer: 0
   m_Name: Base_PowerUp
-  m_TagString: Untagged
+  m_TagString: PlayerArma
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -346,8 +346,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nuevaArma: {fileID: 11400000, guid: f760f0dae4055254cba6dd81bf50fd80, type: 2}
   arma: {fileID: 0}
-  sonidoRecoger: {fileID: 8300000, guid: 23cfdb6f097f78341b2f501feb104285, type: 3}
-  audioSourcePrefab: {fileID: 7234043304168573410}
+  sonidoRecoger: {fileID: 0}
+  audioSourcePrefab: {fileID: 0}
 --- !u!61 &8439332981202639911
 BoxCollider2D:
   m_ObjectHideFlags: 0

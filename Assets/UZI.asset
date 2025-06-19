@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: UZI
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 3033697178747587341, guid: 36bbf737ef2756f4794865049e19e844, type: 3}
-  fireRate: 0.1
+  fireRate: 0.18
   prefabVisualArma: {fileID: 5840975931019696672, guid: 53c5a2630efa1694b980dbbbc4e107e9, type: 3}

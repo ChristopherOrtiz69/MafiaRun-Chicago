@@ -7,7 +7,6 @@ public class InicioNivel : MonoBehaviour
     public RectTransform letra2;
     public RectTransform letra3;
     public RectTransform letra4;
-
     public RectTransform letra5;
     public RectTransform letra6;
     public RectTransform Panel;
@@ -15,11 +14,12 @@ public class InicioNivel : MonoBehaviour
     [Header("Configuración de animación")]
     public LeanTweenType tipoAnimacion = LeanTweenType.easeOutBack;
 
-    // Posiciones originales
     private Vector3[] posicionesIniciales;
+    private GameObject canvas;
 
     private void Start()
     {
+        canvas = GetComponentInParent<Canvas>()?.gameObject;
         GuardarPosicionesIniciales();
         IniciarAnimacionLetras();
     }
@@ -47,9 +47,15 @@ public class InicioNivel : MonoBehaviour
         LeanTween.moveY(Panel, 152f, 0.5f).setDelay(0.1f).setEase(tipoAnimacion)
             .setOnComplete(() =>
             {
-                // Espera 1 segundo después de terminar la animación
-                Invoke(nameof(RestaurarPosiciones), 2f);
+                Invoke(nameof(CerrarCanvas), 2f);
             });
+    }
+
+    void CerrarCanvas()
+    {
+        RestaurarPosiciones();
+        if (canvas != null)
+            canvas.SetActive(false);
     }
 
     void RestaurarPosiciones()

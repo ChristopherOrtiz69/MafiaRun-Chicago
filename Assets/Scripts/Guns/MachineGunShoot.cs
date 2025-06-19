@@ -121,7 +121,7 @@ public class MachineGunShoot : MonoBehaviour
         if (bulletScript != null)
         {
             bulletScript.esDelEnemigo = false;
-            bulletScript.DispararEnDireccion(direccion);
+            bulletScript.Disparar(direccion);
         }
 
         bala.SetActive(true);

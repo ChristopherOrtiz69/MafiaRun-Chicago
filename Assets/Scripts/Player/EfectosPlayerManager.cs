@@ -5,8 +5,8 @@ using System.Collections;
 public class EfectosPlayerManager : MonoBehaviour
 {
     [Header("Referencias necesarias")]
-    public VidaJugador vidaJugador; 
-    public SpriteRenderer spriteRenderer; // Sprite del jugador
+    public Health health; // Asegúrate de usar el tipo correcto
+    public SpriteRenderer spriteRenderer;
     public CinemachineImpulseSource impulseSource;
 
     [Header("Configuración del efecto")]
@@ -17,9 +17,9 @@ public class EfectosPlayerManager : MonoBehaviour
 
     private void Start()
     {
-        if (vidaJugador != null)
+        if (health != null)
         {
-            vidaJugador.OnRecibirDaño += EjecutarEfectosDaño;
+            health.OnRecibirGolpeEvent += EjecutarEfectosDaño;
         }
 
         if (spriteRenderer != null)
@@ -30,10 +30,9 @@ public class EfectosPlayerManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        // Siempre desvincula el evento para evitar errores
-        if (vidaJugador != null)
+        if (health != null)
         {
-            vidaJugador.OnRecibirDaño -= EjecutarEfectosDaño;
+            health.OnRecibirGolpeEvent -= EjecutarEfectosDaño;
         }
     }
 

@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.108
       objectReference: {fileID: 0}
+    - target: {fileID: 2046300653414134134, guid: f73a15d2a61f91c43943c483db7f5d10, type: 3}
+      propertyPath: nuevaArma
+      value: 
+      objectReference: {fileID: 11400000, guid: 9121d4d2b8474404084dc6e545911cec, type: 2}
     - target: {fileID: 3611646748114445888, guid: f73a15d2a61f91c43943c483db7f5d10, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

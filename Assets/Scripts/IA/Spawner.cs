@@ -33,31 +33,20 @@ public class Spawner : MonoBehaviour
         {
             GameObject enemigo = Instantiate(prefab, transform.position, transform.rotation);
 
-            
             EnemyAI enemyAI = enemigo.GetComponent<EnemyAI>();
             if (enemyAI != null)
             {
-                enemyAI.objetivo = player.transform;
+                enemyAI.SetObjetivo(player.transform);  // <-- Aquí usamos el método público para asignar objetivo
             }
             else
             {
-               
-                HelicopterAI heliAI = enemigo.GetComponent<HelicopterAI>();
-                if (heliAI != null)
-                {
-                    heliAI.objetivo = player.transform;
-                }
-                else
-                {
-                    Debug.LogWarning("El prefab no tiene ni EnemyAI ni HelicopterAI.");
-                }
+                Debug.LogWarning("El prefab no tiene EnemyAI.");
             }
 
             enemigosSpawneados++;
             yield return new WaitForSeconds(intervaloSpawn);
         }
 
-        // Al llegar al límite
         TerminoSpawneo();
     }
 
