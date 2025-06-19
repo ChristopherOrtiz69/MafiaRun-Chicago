@@ -43,7 +43,7 @@ public class BulletPool : MonoBehaviour
             }
         }
 
-        // 🔴 Ya no se crean más si se agota el pool (para evitar GC)
+
         Debug.LogWarning($"[BulletPool] No hay balas disponibles para {prefab.name}. Aumenta el tamaño del pool.");
         return null;
     }
